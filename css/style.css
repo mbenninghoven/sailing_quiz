@@ -1,0 +1,58 @@
+header {
+
+
+}
+
+body {
+	background-image: url('https://static.pexels.com/photos/4167/sailing-ship-boat-sailing-lake.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	font-family: 'Slabo 27px', serif;
+	-webkit-font-smoothing: antialiased;
+	text-align: center;
+	color: #ffffff;
+}
+
+input[name="question"]{
+	display: i
+}
+
+.main_header .instructions {
+	text-align: center;
+	font-weight: bolder;
+}
+
+.submission div {
+	display: inline-block;
+	text-align: left;
+}
+
+@media (min-width: 600px) {
+
+	p {
+		font-size: 12px;
+	}
+
+	body {
+		font-size: 14px;
+	}
+
+	h1 {
+		font-size: 36px;
+	}
+
+}
+
+@media (min-width: 1000px){
+	p {
+		font-size: 14px;
+	}
+
+	body {
+		font-size: 16px;
+	}
+
+	h1 {
+		font-size: 48px;
+	}
+}
