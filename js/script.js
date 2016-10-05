@@ -24,7 +24,7 @@ var quiz =  [
 ];
 
 var currentQuestion = 0;
-//var checked = "";
+var numberCorrect = 0;
 
 loadnewQ();
 checkAnswer();
@@ -70,10 +70,9 @@ function checkAnswer(){
 function validateAnswer(checked){
 
         var correctAnswer = quiz[currentQuestion].correct;
-		if (checked == correctAnswer){
+		if (checked === correctAnswer){
 			console.log(checked);
-		currentQuestion++;
-		//loadnewQ();
+			numberCorrect++;
 		}
 		else{
 		alert("Incorrect!");
