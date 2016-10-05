@@ -24,20 +24,12 @@ var quiz =  [
 ];
 
 var currentQuestion = 0;
+//var checked = "";
 
 loadnewQ();
-
-
-
 checkAnswer();
-questionSubmit();
 
 //Display the first object's properties upon loading the page
-function newGame(){
-	currentQuestion=0;
-
-}	
-
 //iterate through the object and display the first question,
 function loadnewQ(){ 
 	
@@ -53,27 +45,42 @@ function loadnewQ(){
 		$("label[for='answer_two']").text(currentChoices[1]);
 		$("label[for='answer_three']").text(currentChoices[2]);
 		$("label[for='answer_four']").text(currentChoices[3]);
+		checkAnswer();
 	}
 
 }
 
 function checkAnswer(){
-		$( "#submission" ).submit(function( event ) {
-  		checkAnswer();
-		event.preventDefault();
-});
-	var checked = $("form input[type='radio']:checked").val();
-	console.log(checked);
-	console.log()
-				//$("form input[type='radio']:checked").val();
-	if (checked === quiz[currentQuestion].correct){
-		alert("correct question is: " + quiz[currentQuestion].correct);
-		console.log("correct question: " + quiz[currentQuestion].correct);
+
+		$("#submission").submit(function( event ) {
+		//$('#button').click(function() {
+    	$("input[type='radio']:checked").each(function() {
+        var checked = $('input:radio:checked').next('label:first').html();
+        console.log("this is what I checked: " + checked);
+                validateAnswer(checked);
+        //console.log($("label[for='"+checked+"']").text());
+        event.preventDefault();
+        });
+       	//});
+		});
+
+     }
+
+
+function validateAnswer(checked){
+
+        var correctAnswer = quiz[currentQuestion].correct;
+		if (checked == correctAnswer){
+			console.log(checked);
 		currentQuestion++;
-	}
-	else{
-		//alert("Incorrect!");
-	}
+		//loadnewQ();
+		}
+		else{
+		alert("Incorrect!");
+		//loadnewQ();
+		}
+		//var checked = $("form input[type='radio']:checked").val();
+		//console.log("this is the value from the button checked: " + checked);
 }
 
 function newQ(){

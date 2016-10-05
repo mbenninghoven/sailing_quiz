@@ -23,7 +23,7 @@ input[name="question"]{
 }
 
 .submission div {
-	display: inline-block;
+	display: block;
 	text-align: left;
 }
 
