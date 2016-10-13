@@ -1,3 +1,11 @@
+$( document ).ready(function() {
+    $("#submission").submit(function( event ) {
+    	var checkedRadio = $("input[type='radio']:checked").val();
+    	validateAnswer(checkedRadio);
+    	event.preventDefault();
+	});
+});
+
 //Uses objects to represent the questions and answers
 var quiz =  [
 	{
@@ -27,86 +35,60 @@ var currentQuestion = 0;
 var numberCorrect = 0;
 
 loadnewQ();
-checkAnswer();
 
 //Display the first object's properties upon loading the page
 //iterate through the object and display the first question,
 function loadnewQ(){ 
-	
-	var currentChoices = quiz[currentQuestion].choices;
-	console.log(currentChoices);
-
-
-	$('.displayq').text(quiz[currentQuestion].question);
-	// or for loop
-	for (var i = 0; i < currentChoices.length; i++){
-		console.log(currentChoices[i]);
-		$("label[for='answer_one']").text(currentChoices[0]);
-		$("label[for='answer_two']").text(currentChoices[1]);
-		$("label[for='answer_three']").text(currentChoices[2]);
-		$("label[for='answer_four']").text(currentChoices[3]);
-		checkAnswer();
+	/*if (currentQuestion == quiz.length) {
+		console.log("quizlength" + quiz.length);
+		$('displayq').text("You scored " + numberCorrect + " out of 5!");
 	}
+	else {*/
+		var currentChoices = quiz[currentQuestion].choices;
+		console.log(currentChoices);
 
-}
 
-function checkAnswer(){
+		$('.displayq').text(quiz[currentQuestion].question);
+		// or for loop
+		for (var i = 0; i < currentChoices.length; i++){
+			console.log(currentChoices[i]);
+			$("label[for='answer_one']").text(currentChoices[0]);
+			$('#answer_one').val(currentChoices[0]);
+			$("label[for='answer_two']").text(currentChoices[1]);
+			$('#answer_two').val(currentChoices[1]);
+			$("label[for='answer_three']").text(currentChoices[2]);
+			$('#answer_three').val(currentChoices[2]);
+			$("label[for='answer_four']").text(currentChoices[3]);
+			$('#answer_four').val(currentChoices[3]);
+		}
+		if( currentQuestion > 0) {
+	    	$("input[type='radio']:checked").prop('checked',false);
 
-		$("#submission").submit(function( event ) {
-		//$('#button').click(function() {
-    	$("input[type='radio']:checked").each(function() {
-        var checked = $('input:radio:checked').next('label:first').html();
-        console.log("this is what I checked: " + checked);
-                validateAnswer(checked);
-        //console.log($("label[for='"+checked+"']").text());
-        event.preventDefault();
-        });
-       	//});
-		});
-
-     }
-
+	   }
+	}
+//}
 
 function validateAnswer(checked){
 
         var correctAnswer = quiz[currentQuestion].correct;
-		if (checked === correctAnswer){
+        console.log(correctAnswer);
+        quiz.length++;
+		if (checked == correctAnswer){
 			console.log(checked);
 			numberCorrect++;
+			showScore();
 		}
 		else{
+			showScore();
 		alert("Incorrect!");
-		//loadnewQ();
 		}
-		//var checked = $("form input[type='radio']:checked").val();
-		//console.log("this is the value from the button checked: " + checked);
+		currentQuestion++;
+		loadnewQ();
 }
 
-function newQ(){
-	for (var i = 0; i < currentChoices.length; i++){
-		console.log(currentChoices[1]);
+function showScore (){
+		if (currentQuestion == 5) {
+		//console.log("quizlength" + quiz.length);
+		$('displayq').text("You scored " + numberCorrect + " out of 5!");
 	}
 }
-
-//Once the submit button is pressed check 'choice' 
-//against 'correct' property value (validation)
-//throws error if nothing was selected
-
-function questionSubmit (){
-
-}
-
-
-//function that iterates through to next question and displays
-//the subsequent property within the object array
-
-
-
-
-//function that shows the users score after last question is answered
-
-
-//new game function that reloads the page to original question
-//clears progress
-
-
