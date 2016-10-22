@@ -1,12 +1,22 @@
 $( document ).ready(function() {
+	startGame();
     $("#submission").submit(function( event ) {
     	var checkedRadio = $("input[type='radio']:checked").val();
-    	validateAnswer(checkedRadio);
+
+    	if($("input[name='answer']:checked").length == 0){
+			alert("Answer the question!");
+		}
+		else {
+			validateAnswer(checkedRadio);
+		}
     	event.preventDefault();
 	});
+	$(".subbut").click(function(e) {
+		e.preventDefault();
+  		startGame();
+	});
 });
-
-//Uses objects to represent the questions and answers
+var currentQuestion, numberCorrect;
 var quiz =  [
 	{
 		"question": "What do you call the person controlling the jib sheets?",
@@ -31,27 +41,28 @@ var quiz =  [
 	}
 ];
 
-var currentQuestion = 0;
-var numberCorrect = 0;
 
-loadnewQ();
+function startGame(){
+	currentQuestion = 0;
+	numberCorrect = 0;
+	$('.subbut').hide();
+	$('.submissions').show();
+	loadnewQ();
+}
 
-//Display the first object's properties upon loading the page
-//iterate through the object and display the first question,
-function loadnewQ(){ 
-	/*if (currentQuestion == quiz.length) {
-		console.log("quizlength" + quiz.length);
-		$('displayq').text("You scored " + numberCorrect + " out of 5!");
-	}
-	else {*/
-		var currentChoices = quiz[currentQuestion].choices;
-		console.log(currentChoices);
+function loadnewQ(){
+	if (currentQuestion == 5) {
+   		showScore();
+   	}
+   	else {
+   		var currentChoices = quiz[currentQuestion].choices;
+		var displaycurrent =  currentQuestion + 1;
 
-
+		$('.instructions').text("Question Number " + displaycurrent + " out of 5");
 		$('.displayq').text(quiz[currentQuestion].question);
-		// or for loop
+
 		for (var i = 0; i < currentChoices.length; i++){
-			console.log(currentChoices[i]);
+
 			$("label[for='answer_one']").text(currentChoices[0]);
 			$('#answer_one').val(currentChoices[0]);
 			$("label[for='answer_two']").text(currentChoices[1]);
@@ -61,34 +72,21 @@ function loadnewQ(){
 			$("label[for='answer_four']").text(currentChoices[3]);
 			$('#answer_four').val(currentChoices[3]);
 		}
-		if( currentQuestion > 0) {
 	    	$("input[type='radio']:checked").prop('checked',false);
-
-	   }
-	}
-//}
+   	}
+}
 
 function validateAnswer(checked){
-
         var correctAnswer = quiz[currentQuestion].correct;
-        console.log(correctAnswer);
-        quiz.length++;
 		if (checked == correctAnswer){
-			console.log(checked);
-			numberCorrect++;
-			showScore();
-		}
-		else{
-			showScore();
-		alert("Incorrect!");
+			numberCorrect++;	
 		}
 		currentQuestion++;
 		loadnewQ();
 }
 
 function showScore (){
-		if (currentQuestion == 5) {
-		//console.log("quizlength" + quiz.length);
-		$('displayq').text("You scored " + numberCorrect + " out of 5!");
-	}
+	$('.submissions').hide();
+	$('.subbut').css('display', 'inline-block');
+	$('.displayq').text("You scored " + numberCorrect + " out of 5!");
 }
