@@ -3,24 +3,31 @@ header {
 
 }
 
+h3 {
+	font-size: 30px;
+}
+
+div {
+	padding: 2px;
+	font-style: 20px;
+	display: block;
+}
+
 body {
-	background-image: url('https://static.pexels.com/photos/4167/sailing-ship-boat-sailing-lake.jpg');
+	background-image: url('https://static.pexels.com/photos/164023/pexels-photo-164023.jpeg');
 	background-position: center;
+	background-size: 1600px 1600px;
 	background-repeat: no-repeat;
 	font-family: 'Slabo 27px', serif;
 	-webkit-font-smoothing: antialiased;
 	text-align: center;
-	color: #ffffff;
-}
-
-input[name="question"]{
-	/*display: i*/
+	color: #000000 ;
 }
 
 .subbut {
-	background-color: #00bcd4;
+	background-color: #F1FBFF;
 	padding: 5px 10px;
-	color: #000;
+	color: #000000;
 	text-decoration: none;
 	border-radius:4px;
 	display:none;
